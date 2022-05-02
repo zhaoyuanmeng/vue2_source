@@ -1,6 +1,7 @@
 //把data中的数据都使用object.definProperty重新定义
 import { isObj, def } from "../util/index";
 import { arrMethods } from "./array";
+import Dep, { pushTarget } from "./dep";
 /*
  * @description 观察者的一个类
  * @author 赵元达 2022-03-12 14:21:26
@@ -77,8 +78,16 @@ export function observe(data) {
 export function defineReactive(obj, key, val) {
   // 在这里面进行递归调用 注意这里面传递的是val
   observe(val);
+  let dep = new Dep();
   Object.defineProperty(obj, key, {
     get() {
+      // 取值时 我希望将watcher和dep对应起来
+      let watcher = Dep.target;
+      if (watcher) {
+        dep.depend(); // 让dep记住watcher 这是最核心的
+      }
+      console.log("key-dep", dep);
+      console.log(watcher, "wac");
       return val;
     },
     set(newVal) {
@@ -88,6 +97,8 @@ export function defineReactive(obj, key, val) {
       }
       if (newVal === val) return;
       val = newVal;
+      // 触发更新
+      dep.notify();
     },
   });
 }
