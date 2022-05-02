@@ -11,8 +11,8 @@ class Observer {
     // 相当于设置了观察者
     def(data, "__ob__", this);
     if (Array.isArray(data)) {
-      console.log("asdasdasdasd");
-      console.log(data, "ssss");
+      // console.log("asdasdasdasd");
+      // console.log(data, "ssss");
       // 我们需要对数组进行处理 不要对数组下标进行get 和set
       // 我们还有检测那些改变数组值的方法
       data.__proto__ = arrMethods;

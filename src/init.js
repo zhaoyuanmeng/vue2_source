@@ -4,7 +4,7 @@ import { compileToFunction } from "./compile/index";
 export function initMixin(Vue) {
   // vue的初始化流程
   Vue.prototype._init = function (options) {
-    console.log("初始化数据", options);
+    // console.log("初始化数据", options);
     // 数据的劫持
     const vm = this; //这里就是Vue那个对象
     vm.$options = options;
@@ -33,7 +33,7 @@ export function initMixin(Vue) {
       } else {
         // 用template里面的内容
       }
-      console.log("tem", template);
+      // console.log("tem", template);
       // 我们需要将template 转化成render方法 vue2.0是虚拟DOM
       // render是一个函数 里面会返回一个字符串
       const render = compileToFunction(template);

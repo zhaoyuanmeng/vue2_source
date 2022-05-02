@@ -1,7 +1,7 @@
 import { observe } from "./observer/index";
 export function initState(vm) {
   // 拿到vm.options的数据
-  console.log("state", vm.$options);
+  // console.log("state", vm.$options);
   const opt = vm.$options;
   // vue 的数据来源 属性 方法 数据 计算属性 watch
   // 判断一下是哪一种数据来源
@@ -37,7 +37,7 @@ function initData(vm) {
   data = typeof data === "function" ? data.call(vm) : data;
   // 为了方便用户能拿到data 而不是使用vm.$options.data那种方式
   vm._data = data;
-  console.log("数据是：", data);
+  // console.log("数据是：", data);
 
   // 对象劫持 用户改变了数据 我希望可以得到通知===》 刷新页面
   // MVVM模式 数据变化可以驱动视图变化
