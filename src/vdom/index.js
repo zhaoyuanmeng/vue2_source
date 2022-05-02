@@ -50,7 +50,9 @@ export function patch(oldVnode, newVnode) {
     let elm = createElm(newVnode);
     const parElm = oldVnode.parentNode; //找到父节点
     parElm.insertBefore(elm, oldVnode.nextSibling);
-    parElm.removeChild(oldVnode);
+    parElm.removeChild(oldVnode); 
+    // 返回最新的DOM
+    return elm
   }
 }
 

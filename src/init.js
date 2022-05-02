@@ -50,7 +50,7 @@ export function initRender(Vue) {
   Vue.prototype._update = function (vnode) {
     let vm = this;
     // 既有初始化 又有更新
-    patch(vm.$el, vnode);
+    vm.$el = patch(vm.$el, vnode);
   };
   // vue的初始化流程
   Vue.prototype._render = function () {
