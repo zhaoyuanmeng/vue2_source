@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="/dist/umd/vue.js"></script>
+ 
+</head>
+<body>
+ <div id="app">
+  122
+ </div>
+
+ <script>
+  let vm = new Vue({
+    el:'#app',
+    data(){
+      // return { name: 'zyd',age:25 }
+      return  {
+        a:[1,2,3]
+      }
+    }
+  })
+  // 为了解决 vm._data = {} 这种重新赋值的因素 我们需要在set里面进行修改
+  // 为了解决 data里面的数据是{{}} 多个对象嵌套的情况我们需要递归
+
+
+  // 为了解决数组问题 就是这种{ name:[ {a:1},{a:2},{a:3} ] } 外层绝对是一个{}
+  // vm._data.name.push({b:2})
+
+
+  // 生成树的方法
+  // const data = [
+  //       { id: 1, pid: 0, name: '1' },
+  //       { id: 2, pid: 1, name: '1_1' },
+  //       { id: 3, pid: 1, name: '1_2' },
+  //       { id: 4, pid: 2, name: '1_1_1' },
+  //       { id: 5, pid: 2, name: '1_1_2' },
+  //       { id: 6, pid: 5, name: '1_1_2_1' },
+  //       { id: 7, pid: 6, name: '1_1_2_1_1' },
+  //     ]
+  //     function toTree(data, id = 'id', pid = 'pid') {
+  //       const result = []
+  //       const map = {}
+  //       if (!Array.isArray(data)) {
+  //         return result
+  //       }
+  //       data.forEach((item) => {
+  //         delete item.children
+  //       })
+  //       data.forEach((item) => {
+  //         map[item[id]] = item
+  //       })
+  //       data.forEach((item) => {
+  //         const parent = map[item[pid]]
+  //         if (parent) {
+  //           // add parent
+  //           if (!parent.children) {
+  //             parent.children = []
+  //           }
+  //           // add level
+  //           if (!parent.level) {
+  //             parent.level = 1
+  //           }
+  //           item.level = parent.level + 1
+  //           parent.children.push(item)
+  //         } else {
+  //           result.push(item)
+  //         }
+  //       })
+  //       return result
+  //     }
+  //     console.log(toTree(data))
+</script>
+</body>
+</html>
+
+<!-- 
+  对应 
+  <div id="app">
+    <p>{{name}}</p>
+  </div>
+
+  render(){
+    return _c('div',{id:'app'},_c('p',undefined,_v(_s(name))))
+  }
+
+
+ -->
