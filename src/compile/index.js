@@ -1,5 +1,5 @@
-import {parseHtml} from './parse'
-import {generate} from './generate'
+import { parseHtml } from "./parse";
+import { generate } from "./generate";
 /*
  * @description 生成render函数
  * @author 赵元达 2022-03-13 09:21:27
@@ -10,18 +10,15 @@ export function compileToFunction(template) {
   let root = parseHtml(template);
 
   // 生成代码
-  let code = generate(root)
+  let code = generate(root);
 
-  // render(){
-  //   return _c('div',{id:'app',a:1},'hello')
-  // }
-
-
-  // html ==> ast ===> render函数 ===>虚拟DOM ==> 真实DOM
-
-
-  
+  // 这里面的this是vm
+  let render = new Function(`with(this){return ${code}}`);
+  console.log("render", render);
+  return render;
 }
 
-
-
+// let vm = {arr:1}
+// with(vm){
+//   console.log(arr); //这里拿到的就是1 自动结构了
+// }

@@ -1,7 +1,5 @@
 import { observe } from "./observer/index";
 export function initState(vm) {
-  // 拿到vm.options的数据
-  // console.log("state", vm.$options);
   const opt = vm.$options;
   // vue 的数据来源 属性 方法 数据 计算属性 watch
   // 判断一下是哪一种数据来源
@@ -42,8 +40,30 @@ function initData(vm) {
   // 对象劫持 用户改变了数据 我希望可以得到通知===》 刷新页面
   // MVVM模式 数据变化可以驱动视图变化
 
+  // 加一个代理 目的是为了 通过vm.test 绑定到 vm._data.test
+  for (let key in data) {
+    proxy(vm, "_data", key);
+  }
+
   // 写个函数作用是用来劫持对象==》原理是object.defineProperty()添加set和get
   observe(data); //响应式原理 我们单独建一个文件用来书写这种文件
 }
 function initComputed(vm) {}
 function initWatch(vm) {}
+
+/*
+ *@Author: 赵元达
+ *@Date: 2022-05-02 16:59:53
+ *@parms:
+ *@Description: 便捷代理
+ */
+function proxy(vm, source, key) {
+  Object.defineProperty(vm, key, {
+    get() {
+      return vm[source][key];
+    },
+    set(newVal) {
+      vm[source][key] = newVal;
+    },
+  });
+}

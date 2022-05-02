@@ -1,5 +1,7 @@
 import { initState } from "./state";
 import { compileToFunction } from "./compile/index";
+import { mountComponet } from "./life";
+import { createEle, createTextEle, patch } from "./vdom/index";
 // 在原型上添加一个init方法  这种思路很牛逼
 export function initMixin(Vue) {
   // vue的初始化流程
@@ -23,6 +25,7 @@ export function initMixin(Vue) {
     const vm = this;
     const options = vm.$options;
     el = document.querySelector(el);
+    vm.$el = el;
     // 默认会先查找有没有render函数，没有render函数会采用template 再没有就用el中的内容
     if (!options.render) {
       // 对模板进行编译
@@ -30,14 +33,42 @@ export function initMixin(Vue) {
       if (!template && el) {
         // 用el里面的内容进行编译
         template = el.outerHTML; //取出全部的内容 与innerHTML不一样
-      } else {
-        // 用template里面的内容
+        // console.log("tem", template);
+        // 我们需要将template 转化成render方法 vue2.0是虚拟DOM
+        // render是一个函数 里面会返回一个字符串
+        const render = compileToFunction(template);
+        options.render = render;
       }
-      // console.log("tem", template);
-      // 我们需要将template 转化成render方法 vue2.0是虚拟DOM
-      // render是一个函数 里面会返回一个字符串
-      const render = compileToFunction(template);
-      options.render = render;
+      // 挂载组件
+      mountComponet(vm, el);
     }
+  };
+}
+
+export function initRender(Vue) {
+  // vue的初始化流程
+  Vue.prototype._update = function (vnode) {
+    let vm = this;
+    // 既有初始化 又有更新
+    patch(vm.$el, vnode);
+  };
+  // vue的初始化流程
+  Vue.prototype._render = function () {
+    const vm = this;
+    // 这就是我们转移出来的render方法
+    let render = vm.$options.render;
+    let vnode = render.call(vm);
+    console.log("ada", vnode);
+    return vnode;
+  };
+
+  Vue.prototype._s = function (val) {
+    return JSON.stringify(val);
+  };
+  Vue.prototype._c = function () {
+    return createEle(this, ...arguments);
+  };
+  Vue.prototype._v = function (text) {
+    return createTextEle(this, text);
   };
 }
