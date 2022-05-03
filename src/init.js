@@ -2,6 +2,7 @@ import { initState } from "./state";
 import { compileToFunction } from "./compile/index";
 import { mountComponet } from "./life";
 import { createEle, createTextEle, patch } from "./vdom/index";
+import { nextTickPlus } from "./util/index";
 // 在原型上添加一个init方法  这种思路很牛逼
 export function initMixin(Vue) {
   // vue的初始化流程
@@ -43,6 +44,7 @@ export function initMixin(Vue) {
       mountComponet(vm, el);
     }
   };
+  Vue.prototype.$nextTick = nextTickPlus;
 }
 
 export function initRender(Vue) {
@@ -58,7 +60,6 @@ export function initRender(Vue) {
     // 这就是我们转移出来的render方法
     let render = vm.$options.render;
     let vnode = render.call(vm);
-    console.log("ada", vnode);
     return vnode;
   };
 

@@ -44,15 +44,14 @@ function vnode(vm, tag, data, key, children, text) {
  */
 export function patch(oldVnode, newVnode) {
   if (oldVnode.nodeType == 1) {
-    console.log("真实元素");
     // 用vnode 来生成真实DOM 替换原来的DOM
     // DOM 操作原生的
     let elm = createElm(newVnode);
     const parElm = oldVnode.parentNode; //找到父节点
     parElm.insertBefore(elm, oldVnode.nextSibling);
-    parElm.removeChild(oldVnode); 
+    parElm.removeChild(oldVnode);
     // 返回最新的DOM
-    return elm
+    return elm;
   }
 }
 

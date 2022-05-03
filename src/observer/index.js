@@ -86,8 +86,8 @@ export function defineReactive(obj, key, val) {
       if (watcher) {
         dep.depend(); // 让dep记住watcher 这是最核心的
       }
-      console.log("key-dep", dep);
-      console.log(watcher, "wac");
+      // console.log("key-dep", dep);
+      // console.log(watcher, "wac");
       return val;
     },
     set(newVal) {

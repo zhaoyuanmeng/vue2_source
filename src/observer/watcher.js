@@ -1,4 +1,5 @@
 import { popTarget, pushTarget } from "./dep";
+import { cacheWatcher } from "./scheduler";
 let id = 0;
 class Watcher {
   constructor(vm, expFn, callback, options) {
@@ -34,9 +35,24 @@ class Watcher {
       dep.addSub(this); // dep 存watcher
     }
   }
-  // 更新试图
-  update(){
-    this.get()
+  // 更新试图 异步的
+  update() {
+    // 每次更新视图 缓存下watcher 等一会一起更新
+
+    cacheWatcher(this);
+    // this.get()
+  }
+  run() {
+    this.get();
   }
 }
+
+// watcher 和 dep
+// 我们将更新的功能封装成了一个watcher
+// 渲染页面前 会将当前watcher放到Dep类上
+// 在vue页面中页面渲染时使用的属性 需要进行依赖收集 收集对象的渲染watcher
+// 取值时 给每个属性都加了一个dep属性 用于存储这个watcher（同一个watcher会对应多个dep）
+// 每个属性可能对应多个视图 （多个视图肯定时多个watcher） 一个属性要对应多个watcher
+// dep.depend() 通知dep去存放watcher==》Dep.target.addDep()=>去通知watcher去存dep
+
 export default Watcher;

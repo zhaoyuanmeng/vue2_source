@@ -14,7 +14,7 @@ export function compileToFunction(template) {
 
   // 这里面的this是vm
   let render = new Function(`with(this){return ${code}}`);
-  console.log("render", render);
+  // console.log("render", render);
   return render;
 }
 

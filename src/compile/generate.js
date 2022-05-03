@@ -8,13 +8,13 @@ const defaultTagRe = /\{\{((?:.|\r?\n)+?)\}\}/g;
 export function generate(el) {
   // 遍历树 将树拼成字符串
   let children = genChildren(el);
-  console.log(children);
+  // console.log(children);
 
   let code = `_c('${el.tag}',${
     el.attrs.length ? genProps(el.attrs) : undefined
   }${children ? `,${children}` : ""})`;
 
-  console.log("code", code);
+  // console.log("code", code);
   return code;
 }
 
@@ -82,7 +82,6 @@ function gen(el) {
 
 function genChildren(el) {
   let children = el.children;
-  console.log(children);
   if (children) {
     return children
       .map((c) => {
