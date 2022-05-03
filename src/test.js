@@ -22,3 +22,6 @@ nextTick(() => {
 nextTick(() => {
   console.log("2");
 });
+
+// 这里settimeout只会执行最后一次 而且拿到的数据是最终更新好的
+// 这种编程很牛逼

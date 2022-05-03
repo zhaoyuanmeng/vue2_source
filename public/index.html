@@ -18,24 +18,44 @@
     data(){
       // return { name: 'zyd',age:25 }
       return  {
-        test:'asda'
+        test:[['1','2']],
+        name:'zyd',
+        age:{
+          a:12
+        }
       }
+    },
+    watch:{
+      name(newVal,oldVal){
+        console.log(newVal,oldVal);
+      },
+      // name:[
+      //   function(newVal,oldVal){},
+      //   function(newVal,oldVal){},
+      // ]
+      // 'age.a'(newVal,oldVal){
+
+      // }
+
     }
   })
+  // vm.name = 'asdad'
+  // test:[['1','2']]
+  // vm.test[0].push(123) // 这样更新不了 原因是 最外层的数组进行了依赖收集 里层并没有进行watcher收集  
+ 
+  // setTimeout(() => { 
+  //   vm.test = 'zyd'
 
-  setTimeout(() => { 
-    vm.test = 'zyd'
+  //   // 这里面拿不到最新的 因为事件循环机制 得等到下一次才能拿到 （因为下面打印会先执行 而更新是异步操作）
 
-    // 这里面拿不到最新的 因为事件循环机制 得等到下一次才能拿到 （因为下面打印会先执行 而更新是异步操作）
+  //   // console.log('真实dom',vm.$el);
 
-    // console.log('真实dom',vm.$el);
+  //   // 这个原理是 在异步更新操作之后才会执行这个回调函数 利用了队列
+  //   // vm.$nextTick(() => { 
+  //   //   console.log('最新真实dom',vm.$el);
+  //   // })
 
-    // 这个原理是 在异步更新操作之后才会执行这个回调函数 利用了队列
-    vm.$nextTick(() => { 
-      console.log('最新真实dom',vm.$el);
-    })
-
-  },4000)
+  // },4000)
   // 为了解决 vm._data = {} 这种重新赋值的因素 我们需要在set里面进行修改
   // 为了解决 data里面的数据是{{}} 多个对象嵌套的情况我们需要递归
 

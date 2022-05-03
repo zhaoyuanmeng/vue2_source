@@ -39,6 +39,9 @@ methods.forEach((method) => {
         break;
     }
     if (insert) ob.observeArr(insert);
+    // 触发视图更新
+    console.log("1111");
+    ob.dep.notify();
     return res;
   };
 });

@@ -3,6 +3,7 @@ import { compileToFunction } from "./compile/index";
 import { mountComponet } from "./life";
 import { createEle, createTextEle, patch } from "./vdom/index";
 import { nextTickPlus } from "./util/index";
+import { watch } from "./watch";
 // 在原型上添加一个init方法  这种思路很牛逼
 export function initMixin(Vue) {
   // vue的初始化流程
@@ -45,6 +46,7 @@ export function initMixin(Vue) {
     }
   };
   Vue.prototype.$nextTick = nextTickPlus;
+  Vue.prototype.$watch = watch;
 }
 
 export function initRender(Vue) {

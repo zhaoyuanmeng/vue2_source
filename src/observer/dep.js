@@ -8,7 +8,7 @@ let id = 0;
 class Dep {
   // 每个属性我都给他一个dep dep可以存放watcher watcher还要存放这个dep
   constructor() {
-    this.id = id;
+    this.id = id++; // 这里一定要生成唯一的一个id
     this.subs = []; //存放watcher的
   }
 

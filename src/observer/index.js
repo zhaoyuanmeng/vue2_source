@@ -7,8 +7,13 @@ import Dep, { pushTarget } from "./dep";
  * @author 赵元达 2022-03-12 14:21:26
  * @param
  */
+
+// 如果给对象新增一个属性不会触发视图更新
+//
 class Observer {
   constructor(data) {
+    //给对象和数组也绑定上一个dep
+    this.dep = new Dep();
     // 相当于设置了观察者
     def(data, "__ob__", this);
     if (Array.isArray(data)) {
@@ -17,6 +22,7 @@ class Observer {
       // 我们需要对数组进行处理 不要对数组下标进行get 和set
       // 我们还有检测那些改变数组值的方法
       data.__proto__ = arrMethods;
+
       // 如果数组里面是对象我们再监控
       this.observeArr(data);
     } else {
@@ -62,11 +68,14 @@ export function observe(data) {
   // 判断是不是一个对象 只有两种结果 不是对象就是数组
   let isobj = isObj(data);
 
+  // 这里表示是数组
+  if (data.__ob__) {
+    return data.__ob__;
+  }
   if (!isobj) {
     return;
-  } else {
-    return new Observer(data); //用来观测数据
   }
+  return new Observer(data); //用来观测数据
 }
 
 /*
@@ -77,7 +86,8 @@ export function observe(data) {
  */
 export function defineReactive(obj, key, val) {
   // 在这里面进行递归调用 注意这里面传递的是val
-  observe(val);
+  let childOb = observe(val);
+  // console.log("数组", childOb);
   let dep = new Dep();
   Object.defineProperty(obj, key, {
     get() {
@@ -85,6 +95,9 @@ export function defineReactive(obj, key, val) {
       let watcher = Dep.target;
       if (watcher) {
         dep.depend(); // 让dep记住watcher 这是最核心的
+        if (childOb) {
+          childOb.dep.depend(); //让数组和对象也记住watcher
+        }
       }
       // console.log("key-dep", dep);
       // console.log(watcher, "wac");

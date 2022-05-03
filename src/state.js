@@ -16,7 +16,7 @@ export function initState(vm) {
     initComputed(vm);
   }
   if (opt.watch) {
-    initWatch(vm);
+    initWatch(vm, opt.watch);
   }
 }
 /*
@@ -49,7 +49,35 @@ function initData(vm) {
   observe(data); //响应式原理 我们单独建一个文件用来书写这种文件
 }
 function initComputed(vm) {}
-function initWatch(vm) {}
+
+/*
+ *@Author: 赵元达
+ *@Date: 2022-05-03 14:13:39
+ *@parms:
+ *@Description:
+ */
+function initWatch(vm, watch) {
+  for (let key in watch) {
+    let handler = watch[key];
+    if (Array.isArray(handler)) {
+      for (let i = 0; i < handler.length; i++) {
+        createWatcher(vm, key, handler[i]);
+      }
+    } else {
+      createWatcher(vm, key, handler);
+    }
+  }
+}
+
+/*
+ *@Author: 赵元达
+ *@Date: 2022-05-03 14:21:09
+ *@parms:
+ *@Description: 创建watcher
+ */
+function createWatcher(vm, key, handler) {
+  return vm.$watch(key, handler);
+}
 
 /*
  *@Author: 赵元达
