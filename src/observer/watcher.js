@@ -61,7 +61,6 @@ class Watcher {
   }
   run() {
     let newVal = this.get();
-
     let oldVal = this.value;
     // 为了保证数据
     this.value = newVal;
