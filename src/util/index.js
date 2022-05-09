@@ -28,6 +28,19 @@ export function def(data, key, value) {
 
 /*
  *@Author: 赵元达
+ *@Date: 2022-05-06 15:50:08
+ *@parms:
+ *@Description: 合并选项
+ */
+
+export function mergeOptions(parent, child) {
+  const options = {}; //合并后的结果
+  for (let key in parent) {
+  }
+}
+
+/*
+ *@Author: 赵元达
  *@Date: 2022-05-03 10:00:05
  *@parms: callback
  *@Description: 为了比settimeout执行更早点设计的这个方法

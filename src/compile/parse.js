@@ -21,6 +21,12 @@ let root = null;
 // 栈结构
 let stack = [];
 
+/*
+ *@Author: 赵元达
+ *@Date: 2022-05-09 18:58:06
+ *@parms:
+ *@Description: 构造语法树
+ */
 export function parseHtml(html) {
   while (html) {
     let textEnd = html.indexOf("<");
@@ -111,7 +117,7 @@ export function parseHtml(html) {
  *@Author: 赵元达
  *@Date: 2022-05-02 13:39:01
  *@parms:
- *@Description: 构建语法树
+ *@Description: 构建语法树的节点
  */
 function createElement(tagName, attrs) {
   return {

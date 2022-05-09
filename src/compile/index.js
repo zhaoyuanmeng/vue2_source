@@ -7,14 +7,15 @@ import { generate } from "./generate";
  * @return render函数
  */
 export function compileToFunction(template) {
+  // 生成语法树
   let root = parseHtml(template);
-
+  console.log("parsehtml-----", root);
   // 生成代码
   let code = generate(root);
 
   // 这里面的this是vm
   let render = new Function(`with(this){return ${code}}`);
-  // console.log("render", render);
+  console.log("render----", render);
   return render;
 }
 

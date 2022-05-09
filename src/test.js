@@ -5,7 +5,6 @@ function nextTick(cb) {
   if (!wating) {
     // 异步更新 不是掉一次更新一次
     setTimeout(flushCallBacks, 0);
-    console.log("asdads");
     wating = true;
   }
 }

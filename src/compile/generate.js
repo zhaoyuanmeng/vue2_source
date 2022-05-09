@@ -2,8 +2,8 @@ const defaultTagRe = /\{\{((?:.|\r?\n)+?)\}\}/g;
 /*
  *@Author: 赵元达
  *@Date: 2022-05-02 14:13:32
- *@parms:
- *@Description: 返回_c('div',{id:'app',a:1},'hello')这种形式
+ *@parms: 接受一个ast语法树
+ *@Description: 返回_c('div',{id:'app',a:1},'hello')这种形式  生成代码的
  */
 export function generate(el) {
   // 遍历树 将树拼成字符串

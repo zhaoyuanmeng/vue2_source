@@ -54,7 +54,7 @@ function initComputed(vm) {}
  *@Author: 赵元达
  *@Date: 2022-05-03 14:13:39
  *@parms:
- *@Description:
+ *@Description: 用户watch相关的
  */
 function initWatch(vm, watch) {
   for (let key in watch) {
@@ -73,7 +73,7 @@ function initWatch(vm, watch) {
  *@Author: 赵元达
  *@Date: 2022-05-03 14:21:09
  *@parms:
- *@Description: 创建watcher
+ *@Description: 创建用户watcher
  */
 function createWatcher(vm, key, handler) {
   return vm.$watch(key, handler);

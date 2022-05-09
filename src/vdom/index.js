@@ -2,7 +2,7 @@
  *@Author: 赵元达
  *@Date: 2022-05-02 17:03:25
  *@parms:
- *@Description:
+ *@Description:生成普通vnode
  */
 export function createEle(vm, tag, data = {}, ...children) {
   return vnode(vm, tag, data, data.key, children, undefined);
@@ -12,7 +12,7 @@ export function createEle(vm, tag, data = {}, ...children) {
  *@Author: 赵元达
  *@Date: 2022-05-02 17:03:28
  *@parms:
- *@Description:
+ *@Description: 创建textVnode
  */
 export function createTextEle(vm, text) {
   return vnode(vm, undefined, undefined, undefined, undefined, text);

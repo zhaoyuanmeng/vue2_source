@@ -59,6 +59,7 @@ class Watcher {
     cacheWatcher(this);
     // this.get()
   }
+  // 执行函数 这里相当于是异步调用的 因为这个执行放到了nextTicks里面
   run() {
     let newVal = this.get();
     let oldVal = this.value;

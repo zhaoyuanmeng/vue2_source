@@ -64,13 +64,15 @@ export function initRender(Vue) {
     let vnode = render.call(vm);
     return vnode;
   };
-
+  // 创建文本
   Vue.prototype._s = function (val) {
     return JSON.stringify(val);
   };
+  // 创建标签
   Vue.prototype._c = function () {
     return createEle(this, ...arguments);
   };
+  //
   Vue.prototype._v = function (text) {
     return createTextEle(this, text);
   };
