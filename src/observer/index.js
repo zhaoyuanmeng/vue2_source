@@ -104,6 +104,7 @@ export function defineReactive(obj, key, val) {
     },
     set(newVal) {
       // 这里面可以判断是不是设置成了一个对象 如果是就要继续弄成响应式的
+      // 所以数据更新是同步的 视图渲染是异步的
       if (isObj(newVal)) {
         observe(newVal);
       }
