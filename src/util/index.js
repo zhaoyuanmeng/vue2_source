@@ -43,7 +43,7 @@ export function mergeOptions(parent, child) {
  *@Author: 赵元达
  *@Date: 2022-05-03 10:00:05
  *@parms: callback
- *@Description: 为了比settimeout执行更早点设计的这个方法
+ *@Description: 为了比settimeout执行更早点设计的这个方法   这也是一个缓存的机制代码 vue3也是这样的写法
  */
 let cbs = [];
 let wating = false;
